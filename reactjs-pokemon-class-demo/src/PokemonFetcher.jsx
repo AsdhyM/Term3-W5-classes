@@ -10,7 +10,10 @@ export default class PokemonFetcher extends React.Component{
         super(props);
 
         this.state = {
-            pokemonList: []
+            pokemonList: [],
+            // pokemon1: null,
+            // pokemon2: null
+            userJwt: null
         }
     }
 
@@ -40,12 +43,22 @@ export default class PokemonFetcher extends React.Component{
         console.log("PokemonFetcher first loads on the page");
     }
 
+    componentDidUpdate() {
+        console.log("Page has rendered! The current state is: " + this.state.pokemonList);
+
+        if (this.state.userJwt){
+            console.log("User is logged in!");
+        } else {
+            console.log("User is logged out!");
+        }
+    }
+
     render(){
         return (
             <div>
                 <h1>Pokemon Data</h1>
-                {this.state.pokemonList.map(pokemon => {
-                    return <PokemonCard name={pokemon.name} />
+                {this.state.pokemonList.map((pokemon, index) => {
+                    return <PokemonCard key={pokemon.name + index} name={pokemon.name} />
                 })}
 
                 <button onClick={() => {
